@@ -29,7 +29,7 @@
 				</value>
 			</list>
 		</property>
-		<property name="defaultBindingObjectPath" value="book"/>
+		<property name="defaultBindingObjectPath" value="book" />
 	</bean>
 
 	<bean id="Krtrain-BookEntryPage1" parent="Uif-Page">
@@ -39,76 +39,95 @@
 					p:label="Book Title" />
 
 				<bean id="typeCode" parent="Uif-InputField" p:propertyName="typeCode"
-					p:label="Book Type" p:enableAutoQuickfinder="false"/>
+					p:label="Book Type"/>
 
 				<bean id="isbn" parent="Uif-InputField" p:propertyName="isbn" />
 
 				<bean id="publisher" parent="Uif-InputField" p:propertyName="publisher"
 					p:label="Publisher" />
 
-			    <bean parent="Uif-DataField" p:propertyName="entryDate" p:bindingInfo.bindToForm="true"
-                      p:label="Entry Date" p:defaultValue="01/03/2013"/>
+				<bean parent="Uif-DataField" p:propertyName="entryDate"
+					p:bindingInfo.bindToForm="true" p:label="Entry Date"
+					p:defaultValue="01/03/2013" />
 
-                <bean parent="Uif-InputField" p:propertyName="bindingType" p:label="Binding Type"
-                      p:defaultValueFinderClass="org.kuali.rice.krtrain.finders.DefaultBindingTypeValueFinder"/>
+				<bean parent="Uif-InputField" p:propertyName="bindingType"
+					p:label="Binding Type"
+					p:defaultValueFinderClass="org.kuali.rice.krtrain.finders.DefaultBindingTypeValueFinder" />
 
-                <bean parent="Uif-InputField" p:bindingInfo.bindByNamePrefix="author"
-                      p:propertyName="authorName" p:label="Author Name"/>
+				<bean parent="Uif-InputField" p:bindingInfo.bindByNamePrefix="author"
+					p:propertyName="authorName" p:label="Author Name" />
 
-                <bean parent="Uif-InputField" p:bindingInfo.bindByNamePrefix="author"
-                      p:propertyName="email" p:label="Author Email"/>
+				<bean parent="Uif-InputField" p:bindingInfo.bindByNamePrefix="author"
+					p:propertyName="email" p:label="Author Email" />
 
-                <bean parent="Uif-InputField" p:bindingInfo.bindByNamePrefix="ratings"
-                      p:bindingInfo.bindToMap="true" p:propertyName="NYTIMES" p:label="New York Times Rating"/>
+				<bean parent="Uif-InputField" p:bindingInfo.bindByNamePrefix="ratings"
+					p:bindingInfo.bindToMap="true" p:propertyName="NYTIMES"
+					p:label="New York Times Rating" />
 
-                <bean parent="Uif-InputField" p:bindingInfo.bindByNamePrefix="ratings"
-                      p:bindingInfo.bindToMap="true" p:propertyName="AMAZON" p:label="Amazon Rating"/>
+				<bean parent="Uif-InputField" p:bindingInfo.bindByNamePrefix="ratings"
+					p:bindingInfo.bindToMap="true" p:propertyName="AMAZON" p:label="Amazon Rating" />
 
-                <bean parent="Uif-InputField" p:propertyName="edition" p:label="Edition"
-                      p:propertyEditorClass="org.kuali.rice.krtrain.editors.EditionPropertyEditor"/>
+				<bean parent="Uif-InputField" p:propertyName="edition" p:label="Edition"
+					p:propertyEditorClass="org.kuali.rice.krtrain.editors.EditionPropertyEditor" />
 
-                <bean parent="Uif-InputField" p:propertyName="coverArt" p:label="Cover" p:readOnly="true"
-                      p:readOnlyDisplaySuffixPropertyName="coverArtist"/>
+				<bean parent="Uif-InputField" p:propertyName="coverArt"
+					p:label="Cover" p:readOnly="true"
+					p:readOnlyDisplaySuffixPropertyName="coverArtist" />
 
-                <bean parent="Uif-InputField" p:propertyName="author.numberWrittenBooks" p:label="Written Books"
-                      p:readOnly="true"
-                      p:readOnlyDisplayReplacement="@{book.author.numberWrittenBooks} (@{book.author.numberPublishedBooks} Published)"/>
+				<bean parent="Uif-InputField" p:propertyName="author.numberWrittenBooks"
+					p:label="Written Books" p:readOnly="true" />
 
-                <bean parent="Uif-InputField" p:propertyName="wearAndTear" p:label="Wear and Tear" p:readOnly="true"
-                      p:readOnlyListDisplayType="OL"/>
-            </list>
-        </property>
-    </bean>
+				<bean parent="Uif-InputField" p:propertyName="wearAndTear"
+					p:label="Wear and Tear" p:readOnly="true"
+					p:readOnlyListDisplayType="OL" />
 
-    <bean id="Krtrain-BookEntryPage2" parent="Uif-Page">
-    </bean>
 
-    <bean id="Krtrain-BookEntryMenuNavigation" parent="Uif-MenuNavigationGroup">
-        <property name="items">
-            <list>
-                <bean parent="Uif-NavigationActionLink" p:navigateToPageId="Krtrain-BookEntryPage1"
-                      p:actionLabel="Book Indexing"/>
-                <bean parent="Uif-NavigationActionLink" p:navigateToPageId="Krtrain-BookEntryPage2"
-                      p:actionLabel="Book Content"/>
-            </list>
-        </property>
-    </bean>
+				<bean parent="Uif-InputField" p:propertyName="availableFormats"
+					p:label="Available Formats">
+					<property name="control">
+						<bean parent="Uif-VerticalCheckboxesControl">
+											<property name="options"><list>
+						<bean parent="Uif-KeyLabelPair" p:key="P" p:value="Printed" />
+						<bean parent="Uif-KeyLabelPair" p:key="K" p:value="Kindle" />
+						<bean parent="Uif-KeyLabelPair" p:key="A" p:value="Audible" />
+					</list></property>
+						</bean>	
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
 
-    <bean id="Krtrain-BookEntryViewTabs" parent="Krtrain-BookEntryViewMenu" p:headerText="Book Entry Tabs">
-        <property name="navigation">
-            <ref bean="Krtrain-BookEntryTabNavigation"/>
-        </property>
-    </bean>
+	<bean id="Krtrain-BookEntryPage2" parent="Uif-Page">
+	</bean>
 
-    <bean id="Krtrain-BookEntryTabNavigation" parent="Uif-TabNavigationGroup">
-        <property name="items">
-            <list>
-                <bean parent="Uif-NavigationActionLink" p:navigateToPageId="Krtrain-BookEntryPage1"
-                      p:actionLabel="Book Indexing"/>
-                <bean parent="Uif-NavigationActionLink" p:navigateToPageId="Krtrain-BookEntryPage2"
-                      p:actionLabel="Book Content"/>
-            </list>
-        </property>
-    </bean>
+	<bean id="Krtrain-BookEntryMenuNavigation" parent="Uif-MenuNavigationGroup">
+		<property name="items">
+			<list>
+				<bean parent="Uif-NavigationActionLink" p:navigateToPageId="Krtrain-BookEntryPage1"
+					p:actionLabel="Book Indexing" />
+				<bean parent="Uif-NavigationActionLink" p:navigateToPageId="Krtrain-BookEntryPage2"
+					p:actionLabel="Book Content" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="Krtrain-BookEntryViewTabs" parent="Krtrain-BookEntryViewMenu"
+		p:headerText="Book Entry Tabs">
+		<property name="navigation">
+			<ref bean="Krtrain-BookEntryTabNavigation" />
+		</property>
+	</bean>
+
+	<bean id="Krtrain-BookEntryTabNavigation" parent="Uif-TabNavigationGroup">
+		<property name="items">
+			<list>
+				<bean parent="Uif-NavigationActionLink" p:navigateToPageId="Krtrain-BookEntryPage1"
+					p:actionLabel="Book Indexing" />
+				<bean parent="Uif-NavigationActionLink" p:navigateToPageId="Krtrain-BookEntryPage2"
+					p:actionLabel="Book Content" />
+			</list>
+		</property>
+	</bean>
 
 </beans>                    

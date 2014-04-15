@@ -29,6 +29,14 @@
     </bean>
 
     <bean parent="Uif-InputField" p:propertyName="availableFormats" p:label="Available Formats">
+    	<property name="options">
+    		<bean parent=”Uif-KeyLabelPair” p:key=”P” p:value=”Printed”/>
+    		<bean parent=”Uif-KeyLabelPair” p:key=”K” p:value=”Kindle”/>
+    		<bean parent=”Uif-KeyLabelPair” p:key=”A” p:value=”Audible”/>
+    	</property>
+    	<property name="control">
+    		<bean parent="Uif-SelectControl"/>
+    	</property>
     </bean>
 
     <bean parent="Uif-InputField" p:propertyName="averageReview" p:label="Average Review">
