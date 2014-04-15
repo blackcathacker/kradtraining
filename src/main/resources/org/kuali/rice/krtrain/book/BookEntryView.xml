@@ -29,21 +29,34 @@
 				</value>
 			</list>
 		</property>
+		<property name="defaultBindingObjectPath" value="book"/>
 	</bean>
 
 	<bean id="Krtrain-BookEntryPage1" parent="Uif-Page">
 		<property name="items">
 			<list>
-				<bean id="typeTitle" parent="Uif-InputField" p:propertyName="book.title"
+				<bean id="typeTitle" parent="Uif-InputField" p:propertyName="title"
 					p:label="Book Title" />
 
-				<bean id="typeCode" parent="Uif-InputField" p:propertyName="book.typeCode"
-					p:label="Book Type" p:enableAutoQuickfinder="false"/>
+				<bean id="typeCode" parent="Uif-InputField" p:propertyName="typeCode"
+					p:label="Book Type" p:enableAutoQuickfinder="false" />
 
-				<bean id="isbn" parent="Uif-InputField" p:propertyName="book.isbn" />
+				<bean id="isbn" parent="Uif-InputField" p:propertyName="isbn" />
 
-				<bean id="publisher" parent="Uif-InputField" p:propertyName="book.publisher"
+				<bean id="publisher" parent="Uif-InputField" p:propertyName="publisher"
 					p:label="Publisher" />
+
+				<bean id="Book-EntryDate" parent="Uif-DataField" p:label="Entry Date"
+					p:bindingInfo.bindToForm="true" p:propertyName="entryDate"
+					p:defaultValue="01/3/2013"></bean>
+				<bean id="Book-AuthorName" parent="Uif-InputField" p:label="Author Name"
+					p:bindingInfo.bindByNamePrefix="author" p:propertyName="authorName" />
+				<bean id="Book-AuthorEmail" parent="Uif-InputField" p:label="Author Email"
+					p:bindingInfo.bindByNamePrefix="author" p:propertyName="email" />
+				<bean id="Book-NYTSRating" parent="Uif-InputField" p:label="New York Times Rating"
+					p:bindingInfo.bindByNamePrefix="ratings" p:bindingInfo.bindToMap="true" p:propertyName="NYTS"/>
+				<bean id="Book-AmazonRating" parent="Uif-InputField" p:label="Amazon Rating"
+					p:propertyName="ratings[AMAZON]" />
 			</list>
 		</property>
 	</bean>
