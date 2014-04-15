@@ -39,12 +39,19 @@
 					p:label="Book Title" />
 
 				<bean id="typeCode" parent="Uif-InputField" p:propertyName="typeCode"
-					p:dictionaryObjectEntry="org.kuali.rice.krtrain.book.BookType" p:enableAutoQuickfinder="false">
+					p:dictionaryObjectEntry="org.kuali.rice.krtrain.book.BookType" p:enableAutoQuickfinder="false"
+					p:propertyNamesForAdditionalDisplay="bookType.description">
+					<property name="attributeQuery">
+						<bean parent="Uif-AttributeQueryConfig" p:dataObjectClassName="org.kuali.rice.krtrain.book.BookType"
+							p:queryFieldMapping="typeCode:typeCode" p:returnFieldMapping="description:bookType.description"/>
+					</property>
+					<property name="suggest">
+						<bean parent="Uif-Suggest" p:valuePropertyName="typeCode" p:suggestQuery.dataObjectClassName="org.kuali.rice.krtrain.book.BookType"/>
+					</property>
 					<property name="quickfinder">
                         <bean parent="Uif-QuickFinder" p:dataObjectClassName="org.kuali.rice.krtrain.book.BookType"
                               p:fieldConversions="typeCode:typeCode"/>
                     </property>
-
                     <property name="inquiry">
                         <bean parent="Uif-Inquiry" p:dataObjectClassName="org.kuali.rice.krtrain.book.BookType"
                               p:inquiryParameters="typeCode:typeCode" p:enableDirectInquiry="true"/>
@@ -88,8 +95,7 @@
                       p:readOnlyDisplaySuffixPropertyName="coverArtist"/>
 
                 <bean parent="Uif-InputField" p:propertyName="author.numberWrittenBooks" p:label="Written Books"
-                      p:readOnly="true"
-                      p:readOnlyDisplayReplacement="@{book.author.numberWrittenBooks} (@{book.author.numberPublishedBooks} Published)"/>
+                      p:readOnly="true"/>
 
                 <bean parent="Uif-InputField" p:propertyName="wearAndTear" p:label="Wear and Tear" p:readOnly="true"
                       p:readOnlyListDisplayType="OL"/>
