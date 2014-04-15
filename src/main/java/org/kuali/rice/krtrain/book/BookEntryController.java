@@ -203,4 +203,11 @@ public class BookEntryController extends UifControllerBase {
 
         return getUIFModelAndView(form);
     }
+    
+    @RequestMapping(params="methodToCall=viewPublisher")
+    public ModelAndView viewPublisher(@ModelAttribute("KualiForm") BookEntryForm form, BindingResult result,
+    		HttpServletRequest request, HttpServletResponse response) {
+    	String format = form.getActionParamaterValue("format");
+    	return getUIFModelAndView(form);
+    }
 }
