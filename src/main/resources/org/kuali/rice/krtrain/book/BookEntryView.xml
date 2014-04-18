@@ -40,7 +40,8 @@
                     <list>
                         <bean parent="Uif-PrimaryActionButton" p:methodToCall="saveBook" p:actionLabel="save book"
                               p:preSubmitCall="return promptBeforeSave();" p:loadingMessageText="Saving Book..."
-                              p:focusOnIdAfterSubmit="FIRST" p:jumpToIdAfterSubmit="TOP" p:render="@{!view.readOnly}"/>
+                              p:focusOnIdAfterSubmit="FIRST" p:jumpToIdAfterSubmit="TOP" p:render="@{!view.readOnly}"
+                              p:disabled="@{#empty(book.title)}"/>
 
                         <bean parent="Uif-PrimaryActionButton" p:actionScript="clearForm();" p:actionLabel="clear form"/>
 
@@ -658,6 +659,10 @@
           p:collectionObjectClass="org.kuali.rice.krtrain.book.IndexEntry"
           p:renderAddBlankLineButton="true" p:addLinePlacement="BOTTOM"
           p:layoutManager.summaryTitle="Term" p:layoutManager.summaryFields="term">
+        <property name="lineActions"><list>
+        	<bean parent="Uif-DeleteLineAction" p:disabledWhenChangedPropertyNames="#lp.pageNumbers,#lp.term" 
+        		p:evaluateDisabledOnKeyUp="true"/>
+        </list></property>
         <property name="items">
             <list>
                 <bean parent="Uif-InputField" p:propertyName="term"/>
