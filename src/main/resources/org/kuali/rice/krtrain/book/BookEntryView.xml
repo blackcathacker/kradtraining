@@ -98,13 +98,13 @@
 
                 <ref bean="generalInformation"/>
 
-                <ref bean="bookCondition"/>
+                <bean parent="bookCondition" p:progressiveRender="@{!#empty(book.title)}" p:progressiveRenderViaAJAX="true"/>
 
                 <ref bean="ratings"/>
 
                 <ref bean="formats"/>
 
-                <ref bean="publisherGroup"/>
+                <bean parent="publisherGroup" p:refreshWhenChangedPropertyNames="book.publisherAddress"/>
 
                 <ref bean="authorGroup"/>
             </list>
@@ -328,7 +328,7 @@
                 </bean>
 
                 <bean parent="Uif-InputField" p:propertyName="languages" p:label="Languages"
-                      p:colSpan="3" p:wrapperCssClasses="border-group">
+                      p:colSpan="3" p:wrapperCssClasses="border-group" p:refreshWhenChangedPropertyNames="book.availableFormats">
                     <property name="control">
                         <bean parent="Uif-MultiSelectControl"/>
                     </property>
@@ -564,7 +564,13 @@
                 <bean parent="Uif-InputField" p:propertyName="title"/>
                 <bean parent="Uif-InputField" p:propertyName="part"/>
                 <bean parent="Uif-InputField" p:propertyName="numberPages"/>
-                <bean parent="Uif-InputField" p:propertyName="recap"/>
+                <bean parent="Uif-VerticalFieldGroup" p:label="Recap">
+                	<property name="items"><list>
+                		<bean parent="Uif-InputField" p:propertyName="recap"/>
+                		<bean parent="Uif-InputField" p:propertyName="recapPageNumber" p:progressiveRender="@{#lp.recap}"/>
+                	</list>
+                	</property>
+                </bean>
             </list>
         </property>
         <property name="layoutManager.columnCalculations">
