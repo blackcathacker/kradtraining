@@ -5,6 +5,7 @@ import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.web.controller.UifControllerBase;
+import org.kuali.rice.krad.web.form.DialogResponse;
 import org.kuali.rice.krad.web.form.UifFormBase;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -165,11 +167,16 @@ public class BookEntryController extends UifControllerBase {
     public ModelAndView saveBook(@ModelAttribute("KualiForm") BookEntryForm form, BindingResult result,
                                  HttpServletRequest request, HttpServletResponse response) {
 
-        GlobalVariables.getMessageMap().putInfoForSectionId(KRADConstants.GLOBAL_MESSAGES,
-                "method.invoked", "saveBook");
-
-        GlobalVariables.getMessageMap().addGrowlMessage("Save Action", "book.saved", form.getBook().getTitle());
-
+    	DialogResponse dialogResponse = form.getDialogResponse("saveOverrideDialog");
+    	if (dialogResponse == null) {
+    		return showDialog("saveOverrideDialog", true, form);
+    	} else {
+    		boolean dialogAnswer = dialogResponse.getResponseAsBoolean();
+    		if (dialogAnswer) {
+    			GlobalVariables.getMessageMap().addGrowlMessage("Save Action", "book.saved", form.getBook().getTitle());
+    		}
+    	}
+    	
         return getUIFModelAndView(form);
     }
 
